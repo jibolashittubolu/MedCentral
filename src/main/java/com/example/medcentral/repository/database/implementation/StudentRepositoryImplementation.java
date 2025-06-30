@@ -2,6 +2,7 @@ package com.example.medcentral.repository.database.implementation;
 
 import com.example.medcentral.model.entity.Student;
 import com.example.medcentral.model.request.student.StudentQueryParams;
+import com.example.medcentral.model.response.StudentResponse;
 import com.example.medcentral.repository.database.interfaces.IStudentRepository;
 import com.example.medcentral.repository.database.query.StudentQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,10 @@ public class StudentRepositoryImplementation implements IStudentRepository {
         StringBuilder queryBuilder = new StringBuilder(StudentQuery.GET_STUDENTS);
         MapSqlParameterSource sqlParams = new MapSqlParameterSource();
 
+        BeanPropertyRowMapper<Student> rowMapper = new BeanPropertyRowMapper<>(Student.class);
+
+
+
         if (params.getStateOfOrigin() != null) {
             queryBuilder.append(" AND studentStateOfOrigin = :stateOfOrigin");
             sqlParams.addValue("stateOfOrigin", params.getStateOfOrigin());
@@ -64,16 +69,19 @@ public class StudentRepositoryImplementation implements IStudentRepository {
             sqlParams.addValue("age", params.getAge());
         }
 
-        return jdbcTemplate.query(queryBuilder.toString(), sqlParams, (rs, rowNum) -> {
-            Student student = new Student();
-            student.setStudentId(rs.getInt("studentId"));
-            student.setStudentFirstName(rs.getString("studentFirstName"));
-            student.setStudentLastName(rs.getString("studentLastName"));
-            student.setStudentAge(rs.getInt("studentAge"));
-            student.setStudentMatricNumber(rs.getString("studentMatricNumber"));
-            student.setStudentStateOfOrigin(rs.getString("studentStateOfOrigin"));
-            return student;
-        });
+        return jdbcTemplate.query( queryBuilder.toString() ,rowMapper);
+
+//        return jdbcTemplate.query(queryBuilder.toString(), sqlParams, (rs, rowNum) -> {
+//            Student student = new Student();
+//            student.setStudentId(rs.getInt("studentId"));
+//            student.setStudentFirstName(rs.getString("studentFirstName"));
+//            student.setStudentLastName(rs.getString("studentLastName"));
+//            student.setStudentAge(rs.getInt("studentAge"));
+//            student.setStudentMatricNumber(rs.getString("studentMatricNumber"));
+//            student.setStudentStateOfOrigin(rs.getString("studentStateOfOrigin"));
+////            student.setStudentStateOfOrigin(rs.getString("studentStateOfOrigin"));
+//            return student;
+//        });
     }
 
 

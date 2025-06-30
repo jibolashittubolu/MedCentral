@@ -6,6 +6,7 @@ import com.example.medcentral.model.request.student.StudentQueryParams;
 import com.example.medcentral.model.request.student.StudentUpdateRequest;
 import com.example.medcentral.model.response.BaseResponse;
 import com.example.medcentral.model.response.CustomResponseCode;
+import com.example.medcentral.model.response.StudentResponse;
 import com.example.medcentral.services.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +50,10 @@ public class StudentController {
     }
 
     @GetMapping("/getAllStudents")
-    public ResponseEntity<BaseResponse<List<Student>>> getAllStudents(@Valid StudentQueryParams queryParams) {
-        List<Student> students = studentService.getAllStudents(queryParams);
+    public ResponseEntity<BaseResponse<List<StudentResponse>>> getAllStudents(@Valid StudentQueryParams queryParams) {
+        List<StudentResponse> students = studentService.getAllStudents(queryParams);
 
-        BaseResponse<List<Student>> response = new BaseResponse.Builder<List<Student>>()
+        BaseResponse<List<StudentResponse>> response = new BaseResponse.Builder<List<StudentResponse>>()
                 .responseCode(HttpStatus.OK.value())
                 .responseCodeDescription("Success")
                 .responseMessage("Students retrieved successfully")
