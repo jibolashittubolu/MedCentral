@@ -1,10 +1,12 @@
 package com.example.medcentral.services;
 
 import com.example.medcentral.exception.ResourceNotFoundException;
+import com.example.medcentral.mapper.IStudentMapper;
 import com.example.medcentral.model.entity.Student;
 import com.example.medcentral.model.request.student.StudentCreateRequest;
 import com.example.medcentral.model.request.student.StudentQueryParams;
 import com.example.medcentral.model.request.student.StudentUpdateRequest;
+import com.example.medcentral.model.response.StudentResponse;
 import com.example.medcentral.repository.database.interfaces.IStudentRepository;
 import com.example.medcentral.repository.database.interfaces.IStudentService;
 import com.google.gson.Gson;
@@ -12,15 +14,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService implements IStudentService {
 
     private final IStudentRepository studentRepository;
+    private final IStudentMapper studentMapper;
 
     @Autowired
-    public StudentService(IStudentRepository studentRepository) {
+    public StudentService(
+            IStudentRepository studentRepository,
+            IStudentMapper studentMapper
+    ) {
         this.studentRepository = studentRepository;
+        this.studentMapper = studentMapper;
     }
 
     public long createStudent(StudentCreateRequest request) {
@@ -40,9 +48,13 @@ public class StudentService implements IStudentService {
 
 
     @Override
-    public List<Student> getAllStudents(StudentQueryParams queryParams) {
+    public List<StudentResponse> getAllStudents(StudentQueryParams queryParams) {
         try{
-            return studentRepository.getAllStudents(queryParams);
+            return studentRepository
+                    .getAllStudents(queryParams)
+                    .stream()
+                    .map(studentMapper::toResponse)
+                    .collect(Collectors.toList());
         }
         catch (Exception e) {
             throw e;

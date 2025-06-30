@@ -4,6 +4,7 @@ package com.example.medcentral.repository.database.interfaces;
 
 import com.example.medcentral.model.entity.Student;
 import com.example.medcentral.model.request.student.StudentQueryParams;
+import com.example.medcentral.model.response.StudentResponse;
 
 import java.util.List;
 

@@ -4,6 +4,7 @@ import com.example.medcentral.model.entity.Student;
 import com.example.medcentral.model.request.student.StudentCreateRequest;
 import com.example.medcentral.model.request.student.StudentQueryParams;
 import com.example.medcentral.model.request.student.StudentUpdateRequest;
+import com.example.medcentral.model.response.StudentResponse;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface IStudentService {
     //should take in request or so as we do in TS. Modify later
 
 //    getStudents
-    List<Student> getAllStudents(StudentQueryParams queryParams);
+    List<StudentResponse> getAllStudents(StudentQueryParams queryParams);
 
     long updateStudent(StudentUpdateRequest request);
 
