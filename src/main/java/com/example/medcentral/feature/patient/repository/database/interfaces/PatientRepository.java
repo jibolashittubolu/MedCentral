@@ -1,9 +1,7 @@
-package com.example.medcentral.feature.auditpatient.repository.database.interfaces;
+package com.example.medcentral.feature.patient.repository.database.interfaces;
 
-import com.example.medcentral.feature.auditpatient.model.entity.Patient;
-import com.example.medcentral.feature.auditpatient.model.response.PatientResponse;
-import com.example.medcentral.feature.auditpatient.model.entity.Patient;
-import com.example.medcentral.feature.auditpatient.model.response.PatientResponse;
+import com.example.medcentral.feature.patient.model.entity.Patient;
+import com.example.medcentral.feature.patient.model.response.PatientResponse;
 
 import java.util.List;
 import java.util.UUID;

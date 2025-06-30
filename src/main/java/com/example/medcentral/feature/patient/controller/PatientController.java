@@ -1,10 +1,10 @@
-package com.example.medcentral.feature.auditpatient.controller;
+package com.example.medcentral.feature.patient.controller;
 
-import com.example.medcentral.feature.auditpatient.model.request.CreatePatientRequest;
-import com.example.medcentral.feature.auditpatient.model.request.UpdatePatientRequest;
-import com.example.medcentral.feature.auditpatient.model.response.PatientAPIResponse;
-import com.example.medcentral.feature.auditpatient.model.response.PatientResponse;
-import com.example.medcentral.feature.auditpatient.service.PatientService;
+import com.example.medcentral.feature.patient.model.request.CreatePatientRequest;
+import com.example.medcentral.feature.patient.model.request.UpdatePatientRequest;
+import com.example.medcentral.feature.patient.model.response.PatientAPIResponse;
+import com.example.medcentral.feature.patient.model.response.PatientResponse;
+import com.example.medcentral.feature.patient.service.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
-package com.example.medcentral.feature.auditpatient.mapper;
+package com.example.medcentral.feature.patient.mapper;
 
-import com.example.medcentral.feature.auditpatient.model.response.PatientResponse;
+import com.example.medcentral.feature.patient.model.response.PatientResponse;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

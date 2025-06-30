@@ -1,10 +1,10 @@
-package com.example.medcentral.feature.auditpatient.repository.database.implementation;
+package com.example.medcentral.feature.patient.repository.database.implementation;
 
-import com.example.medcentral.feature.auditpatient.mapper.PatientResponseMapper;
-import com.example.medcentral.feature.auditpatient.model.entity.Patient;
-import com.example.medcentral.feature.auditpatient.model.response.PatientResponse;
-import com.example.medcentral.feature.auditpatient.repository.database.interfaces.PatientRepository;
-import com.example.medcentral.feature.auditpatient.repository.database.query.PatientQuery;
+import com.example.medcentral.feature.patient.mapper.PatientResponseMapper;
+import com.example.medcentral.feature.patient.model.entity.Patient;
+import com.example.medcentral.feature.patient.model.response.PatientResponse;
+import com.example.medcentral.feature.patient.repository.database.interfaces.PatientRepository;
+import com.example.medcentral.feature.patient.repository.database.query.PatientQuery;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;

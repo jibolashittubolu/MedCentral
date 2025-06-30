@@ -1,12 +1,12 @@
-package com.example.medcentral.feature.auditpatient.service;
+package com.example.medcentral.feature.patient.service;
 
-import com.example.medcentral.feature.auditpatient.mapper.PatientRequestMapper;
-import com.example.medcentral.feature.auditpatient.model.entity.Patient;
-import com.example.medcentral.feature.auditpatient.model.request.CreatePatientRequest;
-import com.example.medcentral.feature.auditpatient.model.request.UpdatePatientRequest;
-import com.example.medcentral.feature.auditpatient.model.response.PatientResponse;
-import com.example.medcentral.feature.auditpatient.repository.database.interfaces.PatientRepository;
-import com.example.medcentral.feature.auditpatient.util.validator.PatientValidator;
+import com.example.medcentral.feature.patient.mapper.PatientRequestMapper;
+import com.example.medcentral.feature.patient.model.entity.Patient;
+import com.example.medcentral.feature.patient.model.request.CreatePatientRequest;
+import com.example.medcentral.feature.patient.model.request.UpdatePatientRequest;
+import com.example.medcentral.feature.patient.model.response.PatientResponse;
+import com.example.medcentral.feature.patient.repository.database.interfaces.PatientRepository;
+import com.example.medcentral.feature.patient.util.validator.PatientValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

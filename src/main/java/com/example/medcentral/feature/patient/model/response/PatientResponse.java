@@ -1,20 +1,18 @@
-package com.example.medcentral.feature.auditpatient.model.request;
+package com.example.medcentral.feature.patient.model.response;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
 @Builder
-public class UpdatePatientRequest {
-
-    @NotNull(message = "Patient ID is required for update")
-    private UUID patientId;
+@NoArgsConstructor
+@AllArgsConstructor
+public class PatientResponse {
 
     private String patientFirstName;
 
@@ -22,14 +20,12 @@ public class UpdatePatientRequest {
 
     private String patientOtherNames;
 
-    @Past(message = "Date of birth must be in the past")
     private LocalDateTime patientDateOfBirth;
 
     private String patientGender;
 
     private String patientPhone;
 
-    @Email(message = "Invalid email format")
     private String patientEmail;
 
     private String patientAddress;

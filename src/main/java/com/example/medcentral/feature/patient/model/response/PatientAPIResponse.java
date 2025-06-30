@@ -1,4 +1,4 @@
-package com.example.medcentral.feature.auditpatient.model.response;
+package com.example.medcentral.feature.patient.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

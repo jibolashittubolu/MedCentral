@@ -1,4 +1,4 @@
-package com.example.medcentral.feature.auditpatient.repository.database.query;
+package com.example.medcentral.feature.patient.repository.database.query;
 
 public class PatientQuery {
 

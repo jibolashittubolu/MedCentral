@@ -1,6 +1,6 @@
-package com.example.medcentral.feature.auditpatient.util.validator;
+package com.example.medcentral.feature.patient.util.validator;
 
-import com.example.medcentral.feature.auditpatient.model.response.PatientResponse;
+import com.example.medcentral.feature.patient.model.response.PatientResponse;
 
 public class PatientValidator {
     public static void validate(PatientResponse patient) {
