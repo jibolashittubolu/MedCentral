@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface MedicineRequestMapper {
+
     Medicine toEntity(CreateMedicineRequest request);
     Medicine toEntity(UpdateMedicineRequest request);
 }

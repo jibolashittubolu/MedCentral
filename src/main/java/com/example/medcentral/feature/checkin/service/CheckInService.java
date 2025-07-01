@@ -8,6 +8,11 @@ import com.example.medcentral.feature.checkin.model.response.CheckInResponse;
 import com.example.medcentral.feature.checkin.repository.database.interfaces.CheckInRepository;
 //import com.example.medcentral.feature.checkin.repository.database.interfaces.PatientRepository;
 import com.example.medcentral.feature.checkin.util.CheckInValidator;
+import com.example.medcentral.feature.hospital.model.entity.Hospital;
+import com.example.medcentral.feature.hospital.repository.database.interfaces.IHospitalRepository;
+import com.example.medcentral.feature.patient.model.response.PatientResponse;
+import com.example.medcentral.feature.patient.repository.database.interfaces.PatientRepository;
+import com.example.medcentral.feature.patient.util.validator.PatientValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,18 +22,19 @@ import java.util.UUID;
 @Service
 public class CheckInService {
 
-    private CheckInRepository checkInRepository;
-    private CheckInRequestMapper checkInRequestMapper;
+    private final CheckInRepository checkInRepository;
+    private final CheckInRequestMapper checkInRequestMapper;
 //    private StaffRepository staffRepository;
 //    private AppointmentRepository appointmentRepository;
-//    private HospitalRepository hospitalRepository;
-//    private PatientRepository patientRepository;
+    private final IHospitalRepository hospitalRepository;
+    private final PatientRepository patientRepository;
 
     @Autowired
-    public CheckInService(CheckInRepository checkInRepository, CheckInRequestMapper checkInRequestMapper) {
+    public CheckInService(CheckInRepository checkInRepository, CheckInRequestMapper checkInRequestMapper, IHospitalRepository hospitalRepository, PatientRepository patientRepository) {
         this.checkInRepository = checkInRepository;
         this.checkInRequestMapper = checkInRequestMapper;
-//        this.patientRepository = patientRepository;
+        this.hospitalRepository = hospitalRepository;
+        this.patientRepository = patientRepository;
     }
 
     public void createCheckin(CreateCheckInRequest request, UUID staffId) {
@@ -66,13 +72,20 @@ public class CheckInService {
         if (checkInId == null || staffId == null || hospitalId == null) {
             throw new IllegalArgumentException("Check-in ID, staff ID and hospital ID must be provided.");
         }
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-//        Staff staff = staffRepository.getStaffById(staffId);
-        CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 
-//        EntityValidator.validateHospital(hospital);
-//        EntityValidator.validateStaff(staff);
+        CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
         CheckInValidator.validate(checkIn);
+
+//        Staff staff = staffRepository.getStaffById(staffId);
+//        EntityValidator.validateStaff(staff);
+
 
         // Optionally validate checkInStatus
         if (checkInStatus != null && !checkInStatus.isBlank()) {
@@ -90,12 +103,18 @@ public class CheckInService {
             throw new IllegalArgumentException("Check-in ID, staff ID and hospital ID must be provided.");
         }
 
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-//        Staff staff = staffRepository.getStaffById(staffId);
-        CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 
-//        EntityValidator.validateHospital(hospital);
+//        Staff staff = staffRepository.getStaffById(staffId);
 //        EntityValidator.validateStaff(staff);
+
+        CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
         CheckInValidator.validate(checkIn);
 
         checkInRepository.addCheckInPatientNotes(checkInId, hospitalId, patientNotes, staffId);
@@ -105,9 +124,13 @@ public class CheckInService {
         if (checkInId == null || hospitalId == null) {
             throw new IllegalArgumentException("Check-in ID and hospital ID must be provided.");
         }
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-
-//        EntityValidator.validateHospital(hospital);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 
         CheckInResponse checkInResponse = checkInRepository.getCheckInById(checkInId, hospitalId);
         if (checkInResponse == null) {throw new IllegalArgumentException("Check-in with ID " + checkInId + " does not exist.");}
@@ -117,9 +140,13 @@ public class CheckInService {
     public List<CheckInResponse> getAllCheckIns(UUID hospitalId) {
         if (hospitalId == null) {throw new IllegalArgumentException("Hospital ID must not be null.");}
 
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-
-//        EntityValidator.validateHospital(hospital);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 
         List<CheckInResponse> checkInResponseList = checkInRepository.getAllCheckIns(hospitalId);
         if (checkInResponseList == null) {throw new IllegalArgumentException("No check-ins found at hospital with ID " + hospitalId);}
@@ -129,11 +156,16 @@ public class CheckInService {
     public List<CheckInResponse> getAllCheckInsByPatientId(UUID hospitalId, UUID patientId) {
         if (hospitalId == null || patientId == null) {throw new IllegalArgumentException("Hospital ID and Patient ID must not be null.");}
 
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-//        PatientResponse patientResponse = patientRepository.getPatientById(patientId);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 
-//        EntityValidator.validateHospital(hospital);
-//        EntityValidator.validatePatient(patientResponse);
+        PatientResponse patientResponse = patientRepository.getPatientById(patientId);
+        PatientValidator.validate(patientResponse);
 
         List<CheckInResponse> checkInResponses = checkInRepository.getAllCheckInsByPatientId(hospitalId, patientId);
         if (checkInResponses == null) {throw new IllegalArgumentException("No check-ins found for patient with ID " + patientId);}
@@ -143,11 +175,16 @@ public class CheckInService {
     public List<CheckInResponse> getActiveCheckInsByPatientId(UUID hospitalId, UUID patientId) {
         if (hospitalId == null || patientId == null) {throw new IllegalArgumentException("Hospital ID and Patient ID must not be null.");}
 
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-//        PatientResponse patientResponse = patientRepository.getPatientById(patientId);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 
-//        EntityValidator.validateHospital(hospital);
-//        EntityValidator.validatePatient(patientResponse);
+        PatientResponse patientResponse = patientRepository.getPatientById(patientId);
+        PatientValidator.validate(patientResponse);
 
         List<CheckInResponse> checkInResponses = checkInRepository.getAllCheckInsByPatientId(hospitalId, patientId);
         if (checkInResponses == null) {throw new IllegalArgumentException("No ACTIVE check-ins found for Patient with ID " + patientId);}
@@ -159,10 +196,15 @@ public class CheckInService {
             throw new IllegalArgumentException("Staff ID and hospital ID must be provided.");
         }
 
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-//        Staff staff = staffRepository.getStaffById(staffId);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 
-//        EntityValidator.validateHospital(hospital);
+//        Staff staff = staffRepository.getStaffById(staffId);
 //        EntityValidator.validateStaff(staff);
 
         List<CheckInResponse> checkInResponses = checkInRepository.listAllCheckInStaffParticipatedIn(hospitalId, staffId);

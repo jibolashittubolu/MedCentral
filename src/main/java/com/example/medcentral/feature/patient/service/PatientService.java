@@ -1,5 +1,7 @@
 package com.example.medcentral.feature.patient.service;
 
+import com.example.medcentral.feature.hospital.model.entity.Hospital;
+import com.example.medcentral.feature.hospital.repository.database.interfaces.IHospitalRepository;
 import com.example.medcentral.feature.patient.mapper.PatientRequestMapper;
 import com.example.medcentral.feature.patient.model.entity.Patient;
 import com.example.medcentral.feature.patient.model.request.CreatePatientRequest;
@@ -16,22 +18,27 @@ import java.util.UUID;
 @Service
 public class PatientService {
 
-    private PatientRepository patientRepository;
-    private PatientRequestMapper patientRequestMapper;
-//    private HospitalRepository hospitalRepository;
+    private final PatientRepository patientRepository;
+    private final PatientRequestMapper patientRequestMapper;
+    private final IHospitalRepository hospitalRepository;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository, PatientRequestMapper patientRequestMapper) {
+    public PatientService(PatientRepository patientRepository, PatientRequestMapper patientRequestMapper,  IHospitalRepository hospitalRepository) {
         this.patientRepository = patientRepository;
         this.patientRequestMapper = patientRequestMapper;
-//        this.hospitalRepository = hospitalRepository;
+        this.hospitalRepository = hospitalRepository;
     }
 
     public void createPatient(CreatePatientRequest request) {
         if (request == null) throw new IllegalArgumentException("Patient request cannot be null");
 
-//        Hospital hospital = hospitalRepository.getHospitalById(request.getPatientRegisteredAt());
-
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(request.getPatientRegisteredAt()));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 //        EntityValidator.validateHospital(hospital);
 
         Patient patient = patientRequestMapper.toEntity(request);
@@ -41,9 +48,15 @@ public class PatientService {
     public void updatePatient(UpdatePatientRequest request) {
         if (request == null) throw new IllegalArgumentException("Patient request cannot be null");
 
-//        Hospital hospital = hospitalRepository.getHospitalById(request.getPatientRegisteredAt());
-//
-//        EntityValidator.validateHospital(hospital);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(request.getPatientRegisteredAt()));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
+        //        EntityValidator.validateHospital(hospital);
+
         PatientResponse patientResponse = patientRepository.getPatientById(request.getPatientId());
         PatientValidator.validate(patientResponse);
 
