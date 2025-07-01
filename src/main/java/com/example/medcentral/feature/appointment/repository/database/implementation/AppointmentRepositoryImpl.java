@@ -1,10 +1,10 @@
-package com.example.v_medcentral.feature.appointment.repository.database.implementation;
+package com.example.medcentral.feature.appointment.repository.database.implementation;
 
-import com.example.v_medcentral.mapper.AppointmentResponseMapper;
-import com.example.v_medcentral.model.entity.Appointment;
-import com.example.v_medcentral.model.response.AppointmentResponse;
-import com.example.v_medcentral.repository.database.interfaces.AppointmentRepository;
-import com.example.v_medcentral.repository.database.query.AppointmentQuery;
+import com.example.medcentral.feature.appointment.mapper.AppointmentResponseMapper;
+import com.example.medcentral.feature.appointment.model.entity.Appointment;
+import com.example.medcentral.feature.appointment.model.response.AppointmentResponse;
+import com.example.medcentral.feature.appointment.repository.database.interfaces.AppointmentRepository;
+import com.example.medcentral.feature.appointment.repository.database.query.AppointmentQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

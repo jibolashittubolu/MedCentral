@@ -1,10 +1,10 @@
-package com.example.v_medcentral.feature.staff.repository.database.implementation;
+package com.example.medcentral.feature.staff.repository.database.implementation;
 
-import com.example.v_medcentral.mapper.StaffResponseMapper;
-import com.example.v_medcentral.model.entity.Staff;
-import com.example.v_medcentral.model.response.StaffResponse;
-import com.example.v_medcentral.repository.database.interfaces.StaffRepository;
-import com.example.v_medcentral.repository.database.query.StaffQuery;
+import com.example.medcentral.feature.staff.mapper.StaffResponseMapper;
+import com.example.medcentral.feature.staff.model.entity.Staff;
+import com.example.medcentral.feature.staff.model.response.StaffResponse;
+import com.example.medcentral.feature.staff.repository.database.interfaces.StaffRepository;
+import com.example.medcentral.feature.staff.repository.database.query.StaffQuery;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;

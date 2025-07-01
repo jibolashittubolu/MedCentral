@@ -39,7 +39,6 @@ public class MedicineService {
         if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
             throw new IllegalArgumentException("Hospital is not ACTIVE.");
         }
-//        EntityValidator.validateHospital(hospital);
 
         Medicine medicine = medicineRequestMapper.toEntity(request);
         medicineRepository.createMedicine(medicine);
@@ -60,14 +59,11 @@ public class MedicineService {
         if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
             throw new IllegalArgumentException("Hospital is not ACTIVE.");
         }
-        //        EntityValidator.validateHospital(hospital);
 
-        // Check if medicine exists
         MedicineResponse medicineResponse = medicineRepository.getMedicineById(medicineId, hospitalId);
 
         MedicineValidator.validate(medicineResponse);
 
-        // Map and update
         Medicine medicine = medicineRequestMapper.toEntity(request);
         medicineRepository.updateMedicine(medicine);
     }
@@ -82,15 +78,14 @@ public class MedicineService {
         }
 
         Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
-        MedicineResponse medicine = medicineRepository.getMedicineById(medicineId, hospitalId);
-
         if (hospital == null) {
             throw new IllegalArgumentException("Hospital not found.");
         }
         if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
             throw new IllegalArgumentException("Hospital is not ACTIVE.");
         }
-//        EntityValidator.validateHospital(hospital);
+
+        MedicineResponse medicine = medicineRepository.getMedicineById(medicineId, hospitalId);
         MedicineValidator.validate(medicine);
 
         medicineRepository.updateMedicineQuantity(medicineQuantity, hospitalId, medicineId);
@@ -103,7 +98,6 @@ public class MedicineService {
         }
 
         MedicineResponse medicine = medicineRepository.getMedicineById(medicineId, hospitalId);
-
         MedicineValidator.validate(medicine);
 
         return medicine;

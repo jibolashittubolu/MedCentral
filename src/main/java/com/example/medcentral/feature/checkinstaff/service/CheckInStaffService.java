@@ -1,5 +1,6 @@
 package com.example.medcentral.feature.checkinstaff.service;
 
+import com.example.medcentral.feature.appointment.repository.database.interfaces.AppointmentRepository;
 import com.example.medcentral.feature.checkin.model.response.CheckInResponse;
 import com.example.medcentral.feature.checkin.repository.database.interfaces.CheckInRepository;
 import com.example.medcentral.feature.checkin.util.CheckInValidator;
@@ -10,6 +11,10 @@ import com.example.medcentral.feature.checkinstaff.model.response.CheckInStaffRe
 import com.example.medcentral.feature.checkinstaff.repository.database.interfaces.CheckInStaffRepository;
 import com.example.medcentral.feature.hospital.model.entity.Hospital;
 import com.example.medcentral.feature.hospital.repository.database.interfaces.IHospitalRepository;
+import com.example.medcentral.feature.staff.model.entity.Staff;
+import com.example.medcentral.feature.staff.model.response.StaffResponse;
+import com.example.medcentral.feature.staff.repository.database.interfaces.StaffRepository;
+import com.example.medcentral.feature.staff.util.validator.StaffValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,20 +23,22 @@ import java.util.UUID;
 
 @Service
 public class CheckInStaffService {
-    private CheckInStaffRepository checkInStaffRepository;
-    private CheckInRepository checkInRepository;
-    private CheckInStaffRequestMapper checkInStaffRequestMapper;
-//    private StaffRepository staffRepository;
-//    private AppointmentRepository appointmentRepository;
-    private IHospitalRepository hospitalRepository;
+    private final CheckInStaffRepository checkInStaffRepository;
+    private final CheckInRepository checkInRepository;
+    private final CheckInStaffRequestMapper checkInStaffRequestMapper;
+    private final StaffRepository staffRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final IHospitalRepository hospitalRepository;
 
 
     @Autowired
-    public CheckInStaffService(CheckInStaffRepository checkInStaffRepository, CheckInStaffRequestMapper checkInStaffRequestMapper, CheckInRepository checkInRepository, IHospitalRepository hospitalRepository) {
+    public CheckInStaffService(CheckInStaffRepository checkInStaffRepository, CheckInStaffRequestMapper checkInStaffRequestMapper, CheckInRepository checkInRepository, IHospitalRepository hospitalRepository, StaffRepository staffRepository, AppointmentRepository appointmentRepository) {
         this.checkInStaffRepository = checkInStaffRepository;
         this.checkInStaffRequestMapper = checkInStaffRequestMapper;
         this.checkInRepository = checkInRepository;
         this.hospitalRepository = hospitalRepository;
+        this.staffRepository = staffRepository;
+        this.appointmentRepository = appointmentRepository;
     }
 
     public void assignCheckInStaff(UUID checkInId, UUID hospitalId, UUID staffId){
@@ -46,11 +53,11 @@ public class CheckInStaffService {
             throw new IllegalArgumentException("Hospital is not ACTIVE.");
         }
 
-//        Staff staff = staffRepository.getStaffById(staffId);
+        StaffResponse staff = staffRepository.getStaffById(staffId);
+        StaffValidator.validate(staff);
+
         CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
         CheckInValidator.validate(checkIn);
-
-//        EntityValidator.validateStaff(staff);
 
         CheckInResponse checkInResponse = checkInRepository.getCheckInById(checkInId, hospitalId);
         if (checkInResponse == null) {throw new IllegalArgumentException("Check-in with ID " + checkInId + " does not exist.");}
@@ -75,8 +82,8 @@ public class CheckInStaffService {
         CheckInValidator.validate(checkIn);
 
         for (UUID staffId : staffIds) {
-//            Staff staff = staffRepository.getStaffById(staffId);
-//            EntityValidator.validateStaff(staff);
+            StaffResponse staff = staffRepository.getStaffById(staffId);
+            StaffValidator.validate(staff);
         }
 
         checkInStaffRepository.assignMultipleStaffToCheckIn(checkInId, hospitalId, staffIds);

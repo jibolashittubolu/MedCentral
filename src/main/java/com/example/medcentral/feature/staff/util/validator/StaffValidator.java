@@ -1,7 +1,7 @@
-package com.example.v_medcentral.feature.staff.util.validator;
+package com.example.medcentral.feature.staff.util.validator;
 
-import com.example.v_medcentral.model.entity.Staff;
-import com.example.v_medcentral.model.response.StaffResponse;
+import com.example.medcentral.feature.staff.model.entity.Staff;
+import com.example.medcentral.feature.staff.model.response.StaffResponse;
 
 public class StaffValidator {
 

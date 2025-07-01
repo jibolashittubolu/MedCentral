@@ -1,6 +1,6 @@
-package com.example.v_medcentral.feature.appointment.mapper;
+package com.example.medcentral.feature.appointment.mapper;
 
-import com.example.v_medcentral.model.response.AppointmentResponse;
+import com.example.medcentral.feature.appointment.model.response.AppointmentResponse;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

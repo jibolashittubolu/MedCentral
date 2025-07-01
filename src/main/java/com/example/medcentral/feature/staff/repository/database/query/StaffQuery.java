@@ -1,4 +1,4 @@
-package com.example.v_medcentral.feature.staff.repository.database.query;
+package com.example.medcentral.feature.staff.repository.database.query;
 
 public class StaffQuery {
 
