@@ -71,17 +71,6 @@ public class StudentRepositoryImplementation implements IStudentRepository {
 
         return jdbcTemplate.query( queryBuilder.toString() ,rowMapper);
 
-//        return jdbcTemplate.query(queryBuilder.toString(), sqlParams, (rs, rowNum) -> {
-//            Student student = new Student();
-//            student.setStudentId(rs.getInt("studentId"));
-//            student.setStudentFirstName(rs.getString("studentFirstName"));
-//            student.setStudentLastName(rs.getString("studentLastName"));
-//            student.setStudentAge(rs.getInt("studentAge"));
-//            student.setStudentMatricNumber(rs.getString("studentMatricNumber"));
-//            student.setStudentStateOfOrigin(rs.getString("studentStateOfOrigin"));
-////            student.setStudentStateOfOrigin(rs.getString("studentStateOfOrigin"));
-//            return student;
-//        });
     }
 
 
