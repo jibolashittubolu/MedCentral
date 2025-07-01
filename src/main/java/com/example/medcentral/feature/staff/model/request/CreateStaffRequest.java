@@ -1,4 +1,4 @@
-package com.example.v_medcentral.feature.staff.model.request;
+package com.example.medcentral.feature.staff.model.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

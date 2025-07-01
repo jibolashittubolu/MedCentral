@@ -1,10 +1,10 @@
-package com.example.v_medcentral.feature.staff.controller;
+package com.example.medcentral.feature.staff.controller;
 
-import com.example.v_medcentral.model.request.CreateStaffRequest;
-import com.example.v_medcentral.model.request.UpdateStaffRequest;
-import com.example.v_medcentral.model.response.StaffAPIResponse;
-import com.example.v_medcentral.model.response.StaffResponse;
-import com.example.v_medcentral.service.StaffService;
+import com.example.medcentral.feature.staff.model.request.CreateStaffRequest;
+import com.example.medcentral.feature.staff.model.request.UpdateStaffRequest;
+import com.example.medcentral.feature.staff.model.response.StaffAPIResponse;
+import com.example.medcentral.feature.staff.model.response.StaffResponse;
+import com.example.medcentral.feature.staff.service.StaffService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

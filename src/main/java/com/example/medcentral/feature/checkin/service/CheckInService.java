@@ -1,5 +1,9 @@
 package com.example.medcentral.feature.checkin.service;
 
+import com.example.medcentral.feature.appointment.model.entity.Appointment;
+import com.example.medcentral.feature.appointment.model.response.AppointmentResponse;
+import com.example.medcentral.feature.appointment.repository.database.interfaces.AppointmentRepository;
+import com.example.medcentral.feature.appointment.util.validator.AppointmentValidator;
 import com.example.medcentral.feature.checkin.mapper.CheckInRequestMapper;
 import com.example.medcentral.feature.checkin.model.entity.CheckIn;
 import com.example.medcentral.feature.checkin.model.request.CreateCheckInRequest;
@@ -13,6 +17,10 @@ import com.example.medcentral.feature.hospital.repository.database.interfaces.IH
 import com.example.medcentral.feature.patient.model.response.PatientResponse;
 import com.example.medcentral.feature.patient.repository.database.interfaces.PatientRepository;
 import com.example.medcentral.feature.patient.util.validator.PatientValidator;
+import com.example.medcentral.feature.staff.model.entity.Staff;
+import com.example.medcentral.feature.staff.model.response.StaffResponse;
+import com.example.medcentral.feature.staff.repository.database.interfaces.StaffRepository;
+import com.example.medcentral.feature.staff.util.validator.StaffValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +32,19 @@ public class CheckInService {
 
     private final CheckInRepository checkInRepository;
     private final CheckInRequestMapper checkInRequestMapper;
-//    private StaffRepository staffRepository;
-//    private AppointmentRepository appointmentRepository;
+    private StaffRepository staffRepository;
+    private AppointmentRepository appointmentRepository;
     private final IHospitalRepository hospitalRepository;
     private final PatientRepository patientRepository;
 
     @Autowired
-    public CheckInService(CheckInRepository checkInRepository, CheckInRequestMapper checkInRequestMapper, IHospitalRepository hospitalRepository, PatientRepository patientRepository) {
+    public CheckInService(CheckInRepository checkInRepository, CheckInRequestMapper checkInRequestMapper, IHospitalRepository hospitalRepository, PatientRepository patientRepository, StaffRepository staffRepository, AppointmentRepository appointmentRepository) {
         this.checkInRepository = checkInRepository;
         this.checkInRequestMapper = checkInRequestMapper;
         this.hospitalRepository = hospitalRepository;
         this.patientRepository = patientRepository;
+        this.staffRepository = staffRepository;
+        this.appointmentRepository = appointmentRepository;
     }
 
     public void createCheckin(CreateCheckInRequest request, UUID staffId) {
@@ -46,9 +56,8 @@ public class CheckInService {
             throw new IllegalArgumentException("Staff ID must not be null.");
         }
 
-//        Staff staff = staffRepository.getStaffById(staffId);
-
-//        EntityValidator.validateStaff(staff);
+        StaffResponse staff = staffRepository.getStaffById(staffId);
+        StaffValidator.validate(staff);
 
         CheckIn checkIn = checkInRequestMapper.toEntity(request);
         checkInRepository.createCheckIn(checkIn, staffId);
@@ -59,11 +68,11 @@ public class CheckInService {
             throw new IllegalArgumentException("Appointment ID and Staff ID must not be null.");
         }
 
-//        Staff staff = staffRepository.getStaffById(staffId);
-//        Appointment appointment = appointmentRepository.getAppointmentById(appointmentId);
+        StaffResponse staff = staffRepository.getStaffById(staffId);
+        StaffValidator.validate(staff);
 
-//        EntityValidator.validateStaff(staff);
-//        EntityValidator.validateAppointment(appointment);
+        AppointmentResponse appointment = appointmentRepository.getAppointmentById(appointmentId);
+        AppointmentValidator.validate(appointment);
 
         checkInRepository.createCheckInFromAppointment(appointmentId, staffId);
     }
@@ -83,8 +92,8 @@ public class CheckInService {
         CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
         CheckInValidator.validate(checkIn);
 
-//        Staff staff = staffRepository.getStaffById(staffId);
-//        EntityValidator.validateStaff(staff);
+        StaffResponse staff = staffRepository.getStaffById(staffId);
+        StaffValidator.validate(staff);
 
 
         // Optionally validate checkInStatus
@@ -111,8 +120,8 @@ public class CheckInService {
             throw new IllegalArgumentException("Hospital is not ACTIVE.");
         }
 
-//        Staff staff = staffRepository.getStaffById(staffId);
-//        EntityValidator.validateStaff(staff);
+        StaffResponse staff = staffRepository.getStaffById(staffId);
+        StaffValidator.validate(staff);
 
         CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
         CheckInValidator.validate(checkIn);
@@ -204,8 +213,8 @@ public class CheckInService {
             throw new IllegalArgumentException("Hospital is not ACTIVE.");
         }
 
-//        Staff staff = staffRepository.getStaffById(staffId);
-//        EntityValidator.validateStaff(staff);
+        StaffResponse staff = staffRepository.getStaffById(staffId);
+        StaffValidator.validate(staff);
 
         List<CheckInResponse> checkInResponses = checkInRepository.listAllCheckInStaffParticipatedIn(hospitalId, staffId);
         if (checkInResponses == null) {throw new IllegalArgumentException("No check-ins found for staff with ID " + staffId);}

@@ -1,7 +1,7 @@
-package com.example.v_medcentral.feature.staff.repository.database.interfaces;
+package com.example.medcentral.feature.staff.repository.database.interfaces;
 
-import com.example.v_medcentral.model.entity.Staff;
-import com.example.v_medcentral.model.response.StaffResponse;
+import com.example.medcentral.feature.staff.model.entity.Staff;
+import com.example.medcentral.feature.staff.model.response.StaffResponse;
 
 import java.util.List;
 import java.util.UUID;

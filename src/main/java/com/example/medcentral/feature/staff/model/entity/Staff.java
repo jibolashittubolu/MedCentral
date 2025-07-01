@@ -1,4 +1,4 @@
-package com.example.v_medcentral.feature.staff.model.entity;
+package com.example.medcentral.feature.staff.model.entity;
 
 import lombok.Builder;
 import lombok.Data;

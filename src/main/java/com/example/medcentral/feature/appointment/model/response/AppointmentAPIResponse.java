@@ -1,4 +1,4 @@
-package com.example.v_medcentral.feature.appointment.model.response;
+package com.example.medcentral.feature.appointment.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

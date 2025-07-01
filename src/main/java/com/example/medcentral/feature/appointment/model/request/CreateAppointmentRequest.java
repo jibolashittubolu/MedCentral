@@ -1,4 +1,4 @@
-package com.example.v_medcentral.feature.appointment.model.request;
+package com.example.medcentral.feature.appointment.model.request;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;

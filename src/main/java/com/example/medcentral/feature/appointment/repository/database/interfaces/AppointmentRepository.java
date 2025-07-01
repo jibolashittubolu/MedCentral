@@ -1,7 +1,7 @@
-package com.example.v_medcentral.feature.appointment.repository.database.interfaces;
+package com.example.medcentral.feature.appointment.repository.database.interfaces;
 
-import com.example.v_medcentral.model.entity.Appointment;
-import com.example.v_medcentral.model.response.AppointmentResponse;
+import com.example.medcentral.feature.appointment.model.entity.Appointment;
+import com.example.medcentral.feature.appointment.model.response.AppointmentResponse;
 
 import java.util.List;
 import java.util.UUID;

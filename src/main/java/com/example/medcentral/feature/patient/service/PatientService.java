@@ -39,7 +39,6 @@ public class PatientService {
         if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
             throw new IllegalArgumentException("Hospital is not ACTIVE.");
         }
-//        EntityValidator.validateHospital(hospital);
 
         Patient patient = patientRequestMapper.toEntity(request);
         patientRepository.createPatient(patient);
@@ -55,7 +54,6 @@ public class PatientService {
         if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
             throw new IllegalArgumentException("Hospital is not ACTIVE.");
         }
-        //        EntityValidator.validateHospital(hospital);
 
         PatientResponse patientResponse = patientRepository.getPatientById(request.getPatientId());
         PatientValidator.validate(patientResponse);

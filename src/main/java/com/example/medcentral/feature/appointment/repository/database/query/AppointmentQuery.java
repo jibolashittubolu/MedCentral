@@ -1,4 +1,4 @@
-package com.example.v_medcentral.feature.appointment.repository.database.query;
+package com.example.medcentral.feature.appointment.repository.database.query;
 
 public class AppointmentQuery {
 

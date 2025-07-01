@@ -1,6 +1,6 @@
-package com.example.v_medcentral.feature.appointment.util.validator;
+package com.example.medcentral.feature.appointment.util.validator;
 
-import com.example.v_medcentral.model.response.AppointmentResponse;
+import com.example.medcentral.feature.appointment.model.response.AppointmentResponse;
 
 public class AppointmentValidator {
     public static void validate(AppointmentResponse appointment) {

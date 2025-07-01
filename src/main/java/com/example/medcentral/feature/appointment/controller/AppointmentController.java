@@ -1,10 +1,10 @@
-package com.example.v_medcentral.feature.appointment.controller;
+package com.example.medcentral.feature.appointment.controller;
 
-import com.example.v_medcentral.model.request.CreateAppointmentRequest;
-import com.example.v_medcentral.model.request.UpdateAppointmentRequest;
-import com.example.v_medcentral.model.response.AppointmentAPIResponse;
-import com.example.v_medcentral.model.response.AppointmentResponse;
-import com.example.v_medcentral.service.AppointmentService;
+import com.example.medcentral.feature.appointment.model.request.CreateAppointmentRequest;
+import com.example.medcentral.feature.appointment.model.request.UpdateAppointmentRequest;
+import com.example.medcentral.feature.appointment.model.response.AppointmentAPIResponse;
+import com.example.medcentral.feature.appointment.model.response.AppointmentResponse;
+import com.example.medcentral.feature.appointment.service.AppointmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

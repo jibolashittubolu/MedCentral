@@ -6,10 +6,13 @@ import com.example.medcentral.feature.checkin.util.CheckInValidator;
 import com.example.medcentral.feature.hospital.model.entity.Hospital;
 import com.example.medcentral.feature.hospital.repository.database.interfaces.IHospitalRepository;
 import com.example.medcentral.feature.sale.mapper.SaleRequestMapper;
+import com.example.medcentral.feature.staff.model.response.StaffResponse;
+import com.example.medcentral.feature.staff.repository.database.interfaces.StaffRepository;
 //import com.example.medcentral.feature.sale.model.response.CheckInResponse;
 import com.example.medcentral.feature.sale.model.response.SaleResponse;
 //import com.example.medcentral.feature.sale.repository.database.interfaces.CheckInRepository;
 import com.example.medcentral.feature.sale.repository.database.interfaces.SaleRepository;
+import com.example.medcentral.feature.staff.util.validator.StaffValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +25,7 @@ public class SaleService {
     private final SaleRepository saleRepository;
     private final SaleRequestMapper saleRequestMapper;
     private final IHospitalRepository hospitalRepository;
-//    private StaffRepository staffRepository;
+    private StaffRepository staffRepository;
     private final CheckInRepository checkInRepository;
 
     @Autowired
@@ -46,8 +49,8 @@ public class SaleService {
             throw new IllegalArgumentException("Hospital is not ACTIVE.");
         }
 
-//        Staff staff = staffRepository.getStaffById(staffId);
-//        EntityValidator.validateStaff(staff);
+        StaffResponse staff = staffRepository.getStaffById(staffId);
+        StaffValidator.validate(staff);
 
         CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
         CheckInValidator.validate(checkIn);

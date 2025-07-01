@@ -1,8 +1,8 @@
-package com.example.v_medcentral.feature.staff.mapper;
+package com.example.medcentral.feature.staff.mapper;
 
-import com.example.v_medcentral.model.entity.Staff;
-import com.example.v_medcentral.model.request.CreateStaffRequest;
-import com.example.v_medcentral.model.request.UpdateStaffRequest;
+import com.example.medcentral.feature.staff.model.entity.Staff;
+import com.example.medcentral.feature.staff.model.request.CreateStaffRequest;
+import com.example.medcentral.feature.staff.model.request.UpdateStaffRequest;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
