@@ -53,6 +53,10 @@ public class EquipmentRepositoryImplementation implements IEquipmentRepository {
 
 
 
+        if (params.getEquipmentId() != null) {
+            queryBuilder.append(" AND equipmentId = :equipmentId");
+            sqlParams.addValue("equipmentId", params.getEquipmentId());
+        }
         if (params.getEquipmentHospitalId() != null) {
             queryBuilder.append(" AND equipmentHospitalId = :equipmentHospitalId");
             sqlParams.addValue("equipmentHospitalId", params.getEquipmentHospitalId());

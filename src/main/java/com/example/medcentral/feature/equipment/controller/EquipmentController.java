@@ -39,7 +39,7 @@ public class EquipmentController {
 
         long rowsAffected = equipmentService.createEquipment(request);
 
-        String message = "A new equpment has been created successfully";
+        String message = "A new equipment has been created successfully";
 
         BaseResponse<Long> response = new BaseResponse.Builder<Long>()
                 .responseCode(CustomResponseCode.CREATED.getStatusCode())

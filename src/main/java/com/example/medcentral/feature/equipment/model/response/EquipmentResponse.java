@@ -8,17 +8,20 @@ import java.sql.Timestamp;
 @Data
 @Builder
 public class EquipmentResponse {
-    private String hospitalId;
-    private String hospitalName;
-    private String hospitalAddress;
-    private String hospitalCity;
-    private String hospitalState;
+    private String equipmentId;
+    private String equipmentHospitalId;
+    private String equipmentName;
+    private String equipmentDescription;
+    private String equipmentType;
 
-    private String hospitalPhone;
-    private String hospitalEmail;
-    private String hospitalStatus;
+    private Timestamp equipmentPurchaseDate;
+    private Timestamp equipmentExpiryDate;
 
-    private Timestamp hospitalCreatedAt;
-    private Timestamp hospitalUpdatedAt;
+    private Timestamp equipmentLastMaintenanceDate;
+    private Timestamp equipmentNextMaintenanceDate;
+    private String equipmentCondition;
+
+    private Timestamp equipmentCreatedAt;
+    private Timestamp equipmentUpdatedAt;
 }
 
