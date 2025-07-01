@@ -12,14 +12,14 @@ public class AuditLogQuery {
 
     public static final String GET_AUDIT_LOGS = """
         SELECT * FROM GROUP1_AUDIT_LOG
-        WHERE status != 'deleted'
+        WHERE status != 'DELETED'
     """;
 
 
     public static final String GET_AUDIT_LOG_BY_ID = """
         SELECT * FROM GROUP1_AUDIT_LOG
         WHERE auditLogId = :auditLogId
-        AND status != 'deleted'
+        AND status != 'DELETED'
     """;
 
 }

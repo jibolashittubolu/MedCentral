@@ -1,5 +1,6 @@
 package com.example.medcentral.feature.equipment.model.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.sql.Timestamp;
 
 @Data
 public class EquipmentUpdateRequest {
+    @JsonIgnore
     private String equipmentId;
 
     private String equipmentHospitalId;

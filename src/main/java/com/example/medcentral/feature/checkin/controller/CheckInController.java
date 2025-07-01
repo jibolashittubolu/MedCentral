@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/checkin")
+@RequestMapping("/v1/checkin")
 public class CheckInController {
 
     private CheckInService checkInService;

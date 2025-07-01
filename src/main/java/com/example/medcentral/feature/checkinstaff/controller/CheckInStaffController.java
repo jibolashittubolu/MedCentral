@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/checkin-staff")
+@RequestMapping("/v1/checkin-staff")
 public class CheckInStaffController {
 
     private CheckInStaffService checkInStaffService;
