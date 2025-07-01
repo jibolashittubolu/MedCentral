@@ -83,7 +83,7 @@ public class HospitalController {
         request.setHospitalId(hospitalId);
         long rowsAffected = hospitalService.updateHospitalById(request);
 
-        String message = "A new hospital has been created successfully";
+        String message = "Hospital has been updated successfully";
 
         BaseResponse<Long> response = new BaseResponse.Builder<Long>()
                 .responseCode(CustomResponseCode.OK.getStatusCode())
