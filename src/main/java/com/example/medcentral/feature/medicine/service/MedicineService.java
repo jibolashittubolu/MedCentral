@@ -1,5 +1,7 @@
 package com.example.medcentral.feature.medicine.service;
 
+import com.example.medcentral.feature.hospital.model.entity.Hospital;
+import com.example.medcentral.feature.hospital.repository.database.interfaces.IHospitalRepository;
 import com.example.medcentral.feature.medicine.mapper.MedicineRequestMapper;
 import com.example.medcentral.feature.medicine.model.entity.Medicine;
 import com.example.medcentral.feature.medicine.model.request.CreateMedicineRequest;
@@ -16,21 +18,27 @@ import java.util.UUID;
 @Service
 public class MedicineService {
 
-    private MedicineRepository medicineRepository;
-    private MedicineRequestMapper medicineRequestMapper;
-//    private HospitalRepository hospitalRepository;
+    private final MedicineRepository medicineRepository;
+    private final MedicineRequestMapper medicineRequestMapper;
+    private final IHospitalRepository hospitalRepository;
 
     @Autowired
-    public MedicineService(MedicineRepository medicineRepository, MedicineRequestMapper medicineRequestMapper) {
+    public MedicineService(MedicineRepository medicineRepository, MedicineRequestMapper medicineRequestMapper, IHospitalRepository hospitalRepository) {
         this.medicineRepository = medicineRepository;
         this.medicineRequestMapper = medicineRequestMapper;
+        this.hospitalRepository = hospitalRepository;
     }
 
     public void createMedicine(CreateMedicineRequest request) {
         if (request == null) throw new IllegalArgumentException("Medicine request cannot be null");
 
-//        Hospital hospital = hospitalRepository.getHospitalById(request.getMedicineHospitalId());
-
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(request.getMedicineHospitalId()));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 //        EntityValidator.validateHospital(hospital);
 
         Medicine medicine = medicineRequestMapper.toEntity(request);
@@ -45,9 +53,14 @@ public class MedicineService {
         UUID hospitalId = request.getMedicineHospitalId();
         UUID medicineId = request.getMedicineId();
 
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-
-//        EntityValidator.validateHospital(hospital);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
+        //        EntityValidator.validateHospital(hospital);
 
         // Check if medicine exists
         MedicineResponse medicineResponse = medicineRepository.getMedicineById(medicineId, hospitalId);
@@ -68,9 +81,15 @@ public class MedicineService {
             throw new IllegalArgumentException("Hospital ID and Medicine ID must be provided.");
         }
 
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
         MedicineResponse medicine = medicineRepository.getMedicineById(medicineId, hospitalId);
 
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 //        EntityValidator.validateHospital(hospital);
         MedicineValidator.validate(medicine);
 
@@ -139,7 +158,6 @@ public class MedicineService {
         }
 
         MedicineResponse medicine = medicineRepository.getMedicineById(medicineId, hospitalId);
-
         MedicineValidator.validate(medicine);
 
         medicineRepository.deleteMedicineById(medicineId, hospitalId);

@@ -1,5 +1,10 @@
 package com.example.medcentral.feature.sale.service;
 
+import com.example.medcentral.feature.checkin.model.response.CheckInResponse;
+import com.example.medcentral.feature.checkin.repository.database.interfaces.CheckInRepository;
+import com.example.medcentral.feature.checkin.util.CheckInValidator;
+import com.example.medcentral.feature.hospital.model.entity.Hospital;
+import com.example.medcentral.feature.hospital.repository.database.interfaces.IHospitalRepository;
 import com.example.medcentral.feature.sale.mapper.SaleRequestMapper;
 //import com.example.medcentral.feature.sale.model.response.CheckInResponse;
 import com.example.medcentral.feature.sale.model.response.SaleResponse;
@@ -14,17 +19,18 @@ import java.util.UUID;
 @Service
 public class SaleService {
 
-    private SaleRepository saleRepository;
-    private SaleRequestMapper saleRequestMapper;
-//    private HospitalRepository hospitalRepository;
+    private final SaleRepository saleRepository;
+    private final SaleRequestMapper saleRequestMapper;
+    private final IHospitalRepository hospitalRepository;
 //    private StaffRepository staffRepository;
-//    private CheckInRepository checkInRepository;
+    private final CheckInRepository checkInRepository;
 
     @Autowired
-    public SaleService(SaleRepository saleRepository, SaleRequestMapper saleRequestMapper) {
+    public SaleService(SaleRepository saleRepository, SaleRequestMapper saleRequestMapper, IHospitalRepository hospitalRepository, CheckInRepository checkInRepository) {
         this.saleRepository = saleRepository;
         this.saleRequestMapper = saleRequestMapper;
-//        this.checkInRepository = checkInRepository;
+        this.hospitalRepository = hospitalRepository;
+        this.checkInRepository = checkInRepository;
     }
 
     public void createSale(UUID checkInId, UUID staffId, UUID hospitalId) {
@@ -32,15 +38,21 @@ public class SaleService {
             throw new IllegalArgumentException("Check-in ID and Staff ID can not be null");
         }
 
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
+
 //        Staff staff = staffRepository.getStaffById(staffId);
-//        CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
-
-//        EntityValidator.validateHospital(hospital);
 //        EntityValidator.validateStaff(staff);
-//        EntityValidator.validateCheckIn(checkIn);
 
-        int sale = saleRepository.createSale(checkInId, staffId, hospitalId);
+        CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
+        CheckInValidator.validate(checkIn);
+
+        saleRepository.createSale(checkInId, staffId, hospitalId);
     }
 
     public SaleResponse getSaleById(UUID saleId, UUID hospitalId) {
@@ -48,9 +60,13 @@ public class SaleService {
             throw new IllegalArgumentException("Sale ID and Hospital ID can not be null");
         }
 
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-
-//        EntityValidator.validateHospital(hospital);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 
         SaleResponse sale = saleRepository.getSaleById(saleId, hospitalId);
         if (sale == null) {
@@ -65,11 +81,16 @@ public class SaleService {
             throw new IllegalArgumentException("Check-in ID and Hospital ID can not be null");
         }
 
-//        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-//        CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
+        Hospital hospital = hospitalRepository.getHospitalById(String.valueOf(hospitalId));
+        if (hospital == null) {
+            throw new IllegalArgumentException("Hospital not found.");
+        }
+        if (!"ACTIVE".equalsIgnoreCase(hospital.getHospitalStatus())) {
+            throw new IllegalArgumentException("Hospital is not ACTIVE.");
+        }
 
-//        EntityValidator.validateHospital(hospital);
-//        EntityValidator.validateCheckIn(checkIn);
+        CheckInResponse checkIn = checkInRepository.getCheckInById(checkInId, hospitalId);
+        CheckInValidator.validate(checkIn);
 
         List<SaleResponse> saleResponses = saleRepository.listAllSaleByCheckIn(checkInId, hospitalId);
         if (saleResponses == null) {
