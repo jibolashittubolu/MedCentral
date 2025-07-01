@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/appointment")
+@RequestMapping("/v1/appointment")
 public class AppointmentController {
 
     private AppointmentService appointmentService;

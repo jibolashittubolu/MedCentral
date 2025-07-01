@@ -12,14 +12,14 @@ public class HospitalQuery {
 
     public static final String GET_HOSPITALS = """
         SELECT * FROM GROUP1_HOSPITAL
-        WHERE hospitalStatus != 'deleted'
+        WHERE hospitalStatus != 'DELETED'
     """;
 
 
     public static final String GET_HOSPITAL_BY_ID = """
         SELECT * FROM GROUP1_HOSPITAL
         WHERE hospitalId = :hospitalId
-        AND hospitalStatus != 'deleted'
+        AND hospitalStatus != 'DELETED'
     """;
 
     public static final String UPDATE_HOSPITAL = """
