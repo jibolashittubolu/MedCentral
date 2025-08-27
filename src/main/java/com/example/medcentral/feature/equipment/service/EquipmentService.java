@@ -2,7 +2,6 @@ package com.example.medcentral.feature.equipment.service;
 
 import com.example.medcentral.exception.ResourceNotFoundException;
 
-
 import com.example.medcentral.feature.equipment.mapper.IEquipmentMapper;
 import com.example.medcentral.feature.equipment.model.entity.Equipment;
 import com.example.medcentral.feature.equipment.model.request.EquipmentCreateRequest;
