@@ -1,5 +1,4 @@
 package com.example.medcentral.controller;
-
 import com.example.medcentral.model.entity.Student;
 import com.example.medcentral.model.request.student.StudentCreateRequest;
 import com.example.medcentral.model.request.student.StudentQueryParams;
